@@ -1,0 +1,11 @@
+services:
+    news:
+        build: ./fetch
+        environment:
+            - KINDLE_MAIL=<KINDLE_EMAIL_ADDRESS>
+        depends_on: 
+            - mail
+
+    mail:
+        build: ./exim4
+        hostname: news_mail
