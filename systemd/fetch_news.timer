@@ -1,0 +1,8 @@
+[Unit]
+Description=Daily news fetching
+
+[Timer]
+OnCalendar=*-*-* 14:00:00
+
+[Install]
+WantedBy=timers.target

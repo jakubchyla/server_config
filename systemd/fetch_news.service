@@ -1,0 +1,12 @@
+[Unit]
+Description=Docker container for fetching news with calibre
+
+[Service]
+WorkingDirectory=/server_config/news
+ExecStart=/usr/bin/docker compose up --abort-on-container-exit
+
+[Install]
+After=network.target
+Requires=docker.serivce
+WantedBy=default.target
+Wants=network.target

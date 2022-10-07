@@ -1,0 +1,14 @@
+[Unit]
+Description=Docker container with syncthing
+
+[Service]
+WorkingDirectory=/server_config/syncthing
+ExecStart=/usr/bin/docker compose up
+Restart=on-failure
+RestartSec=5
+
+[Install]
+After=network.target
+Requires=docker.serivce
+WantedBy=default.target
+Wants=network.target
