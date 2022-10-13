@@ -30,6 +30,6 @@ jobs:
             - name: Log in to Dockerhub
               run: docker login --username ${{secrets.dockerhub_user}} --password ${{secrets.dockerhub_access_token}}
             - name: Build image
-              run: docker build ${{inputs.build_path}} --tag ${{secrets.dockerhub_user}}/${{inputs.image_name}}:$BUILD_DATE
+              run: docker build ${{inputs.build_path}} --tag ${{secrets.dockerhub_user}}/${{inputs.image_name}}:$BUILD_DATE --tag ${{secrets.dockerhub_user}}/${{inputs.image_name}}:latest
             - name: Push image
               run: docker push ${{secrets.dockerhub_user}}/${{inputs.image_name}}:$BUILD_DATE
