@@ -1,13 +1,14 @@
 services:
     news:
-        build: ./fetch
+        image: jakchyla/news_fetch:latest
         environment:
             - KINDLE_MAIL=<KINDLE_EMAIL_ADDRESS>
         depends_on: 
             - mail
 
     mail:
-        build: ./exim4
+        image: jakchyla/exim4:latest
+        # build: ./exim4
         hostname: news_mail
         volumes:
             - ./exim4/mail_config:/config:ro
