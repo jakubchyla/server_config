@@ -5,6 +5,8 @@ on:
         branches: ["master"]
         paths:
             - 'syncthing/**'
+    schedule:
+        - cron: '37 21 * * *'
 
 jobs:
     push:
