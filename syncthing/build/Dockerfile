@@ -14,4 +14,5 @@ ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 EXPOSE 8384/tcp 22000/tcp 22000/udp 21027/udp
 
-CMD syncthing -no-browser -no-restart -gui-address=0.0.0.0:8384 -home=/syncthing_data
+ENV GUI_LISTEN_ADDRESS="0.0.0.0:8384"
+CMD syncthing -no-browser -no-restart -gui-address=$GUI_LISTEN_ADDRESS -home=/syncthing_data
