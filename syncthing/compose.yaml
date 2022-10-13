@@ -1,6 +1,5 @@
 services:
     syncthing:
-        # build: ./build
         image: jakchyla/syncthing:latest
         volumes:
             - "syncthing_data:/syncthing_data"
