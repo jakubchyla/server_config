@@ -8,7 +8,7 @@ on:
 
 jobs:
     push:
-        uses: ./.github/workflows/docker_publish.image.yml
+        uses: ./.github/workflows/docker_publish_image.yml
         with:
             build_path: ./news/fetch
             image_name: news_fetch
