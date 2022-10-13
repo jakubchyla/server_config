@@ -8,9 +8,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && rm -rf /var/apt/lists/* 
 RUN useradd --user-group --shell /bin/false --create-home fetch_news
 
-RUN git clone https://github.com/jakubchyla/news.git --depth 1 /news && \
-    mkdir /news_output && \
-    chown -R fetch_news:fetch_news /news /news_output
+RUN mkdir /fetch && \
+    chown fetch_news:fetch_news /fetch
+    
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 USER fetch_news
-CMD /news/news.sh
+CMD /fetch/news/news.sh

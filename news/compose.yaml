@@ -9,3 +9,5 @@ services:
     mail:
         build: ./exim4
         hostname: news_mail
+        volumes:
+            - ./exim4/mail_config:/config:ro
