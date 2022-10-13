@@ -6,7 +6,7 @@ on:
         paths:
             - 'news/exim4/**'
     schedule:
-        - cron: '37 21 * * *'
+        - cron: '37 19 * * *'
 
 jobs:
     push:
