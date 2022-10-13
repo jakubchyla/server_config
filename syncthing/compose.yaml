@@ -1,6 +1,7 @@
 services:
     syncthing:
-        build: ./build
+        # build: ./build
+        image: jakchyla/syncthing:latest
         volumes:
             - "syncthing_data:/syncthing_data"
         ports:
