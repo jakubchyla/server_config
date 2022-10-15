@@ -8,6 +8,13 @@ on:
     schedule:
         - cron: '37 19 * * *'
     workflow_dispatch:
+        inputs:
+            ref:
+                description: "repository reference: branch/commit etc."
+                required: true
+                type: string
+                default: "master"
+
 
 
 jobs:
@@ -16,6 +23,7 @@ jobs:
         with:
             build_path: ./news/exim4
             image_name: exim4
+            ref: ${{inputs.ref}}
         secrets:
             dockerhub_user: ${{secrets.dockerhub_user}}
             dockerhub_access_token: ${{secrets.dockerhub_access_token}}

@@ -10,6 +10,11 @@ on:
                 description: "Image name"
                 required: true
                 type: string
+            ref:
+                description: "Repository ref"
+                required: false
+                default: "master"
+                type: string               
         secrets:
             dockerhub_user:
                 description: "Dockerhub username"
@@ -25,6 +30,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+              with:
             - name: Get current date
               run: echo "BUILD_DATE=$(date "+%F")" >> $GITHUB_ENV
             - name: Log in to Dockerhub
