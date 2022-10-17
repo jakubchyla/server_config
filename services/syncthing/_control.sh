@@ -1,9 +1,4 @@
-#! /usr/bin/bash
-
-get_project_dir()
-{
-    printf "$(dirname "$0")"
-}
+#! /bin/sh
 
 start()
 {
@@ -12,23 +7,24 @@ start()
 
 stop()
 {
-    while docker compose --project-directory "$PROJECT_DIR" ps --status running | grep "news-news" >/dev/null; do
-        sleep 10
-    done
-    docker compose --project-directory "$PROJECT_DIR" down 
+    docker compose --project-directory "$PROJECT_DIR" down
+}
+
+restart()
+{
+    stop
+    start
 }
 
 update()
 {
-    stop
     docker compose --project-directory "$PROJECT_DIR" pull
-    start
 }
 
 main()
 {
     if [ $# -eq 0 ]; then
-        printf "no option specified\n" >&2
+        printf "%s\n" "no option specified" >&2
         exit 1
     fi
     COMMAND=$1
@@ -46,7 +42,7 @@ main()
             update
         ;;
         *)
-            printf "usage: $0 (start|stop|update)"
+            printf "%s\n" "usage: $0 (start|stop|update)" >&2
             exit 1
         ;;
     esac

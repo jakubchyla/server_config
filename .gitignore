@@ -1,1 +1,3 @@
-news/exim4/mail_config/passwd.client
+services/**/passwd.client
+.vscode
+**/.env

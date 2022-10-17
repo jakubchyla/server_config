@@ -1,0 +1,13 @@
+services:
+    news:
+        image: jakchyla/fetch_news:latest
+        env_file: .env
+        depends_on: 
+            - mail
+
+    mail:
+        image: jakchyla/exim4:latest
+        env_file: .env
+        hostname: news_mail
+        volumes:
+            - ./mail_config:/config:ro

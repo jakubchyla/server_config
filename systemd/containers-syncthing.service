@@ -1,9 +1,9 @@
 [Unit]
-Description=Docker container with syncthing
+Description=Run syncthing service
 
 [Service]
 WorkingDirectory=/server_config/syncthing
-ExecStart=/usr/bin/docker compose up
+ExecStart=/server_config/control.py start syncthing
 Restart=on-failure
 RestartSec=5
 

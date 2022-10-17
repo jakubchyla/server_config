@@ -4,15 +4,16 @@ on:
     push:
         branches: ["master"]
         paths:
-            - 'news/exim4/**'
+            - 'build/exim4/**'
     schedule:
         - cron: '37 19 * * *'
+    workflow_dispatch:
 
 jobs:
     push:
         uses: ./.github/workflows/docker_publish_image.yml
         with:
-            build_path: ./news/exim4
+            build_path: ./build/exim4
             image_name: exim4
         secrets:
             dockerhub_user: ${{secrets.dockerhub_user}}

@@ -4,16 +4,17 @@ on:
     push:
         branches: ["master"]
         paths:
-            - 'news/fetch/**'
+            - 'build/fetch_news/**'
     schedule:
         - cron: '37 19 * * *'
+    workflow_dispatch:
 
 jobs:
     push:
         uses: ./.github/workflows/docker_publish_image.yml
         with:
-            build_path: ./news/fetch
-            image_name: news_fetch
+            build_path: ./build/fetch_news
+            image_name: fetch_news
         secrets:
             dockerhub_user: ${{secrets.dockerhub_user}}
             dockerhub_access_token: ${{secrets.dockerhub_access_token}}

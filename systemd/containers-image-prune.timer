@@ -1,0 +1,9 @@
+[Unit]
+Description=Prune unused images weekly
+
+[Timer]
+OnCalendar=Mon *-*-* 23:00
+
+[Install]
+WantedBy=timers.target
+

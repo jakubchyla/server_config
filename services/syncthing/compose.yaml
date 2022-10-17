@@ -2,7 +2,7 @@ services:
     syncthing:
         image: jakchyla/syncthing:latest
         volumes:
-            - "syncthing_data:/syncthing_data"
+            - "syncthing_data:/syncthing"
         ports:
             - "127.0.0.1:8384:8384"
             - "22000:22000/tcp"

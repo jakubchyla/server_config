@@ -1,0 +1,12 @@
+[Unit]
+Description=Upgrade all containers
+
+[Service]
+Type=oneshot
+ExecStart=/server_config/control.py update all
+
+[Install]
+After=network.target
+Requires=docker.serivce
+WantedBy=default.target
+Wants=network.target

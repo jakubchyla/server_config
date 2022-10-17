@@ -1,9 +1,8 @@
 [Unit]
-Description=Upgrade all containers
+Description=Run news service
 
 [Service]
-Type=oneshot
-ExecStart=/server_config/control.sh update-all
+ExecStart=/server_config/control.py start news
 
 [Install]
 After=network.target

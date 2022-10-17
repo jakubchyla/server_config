@@ -1,0 +1,11 @@
+[Unit]
+Description=Prune unused docker images
+
+[Service]
+Type=oneshot
+ExecStart=docker image prune --force
+
+[Install]
+Requires=docker.serivce
+WantedBy=default.target
+

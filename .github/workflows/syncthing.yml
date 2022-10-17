@@ -4,15 +4,16 @@ on:
     push:
         branches: ["master"]
         paths:
-            - 'syncthing/**'
+            - 'build/syncthing/**'
     schedule:
         - cron: '37 19 * * *'
+    workflow_dispatch:
 
 jobs:
     push:
         uses: ./.github/workflows/docker_publish_image.yml
         with:
-            build_path: ./syncthing/build
+            build_path: ./build/syncthing
             image_name: syncthing
         secrets:
             dockerhub_user: ${{secrets.dockerhub_user}}
