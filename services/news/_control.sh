@@ -28,7 +28,6 @@ update()
 {
     stop
     docker compose --project-directory "$PROJECT_DIR" pull
-    start
 }
 
 main()
