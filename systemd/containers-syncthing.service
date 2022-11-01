@@ -2,13 +2,13 @@
 Description=Run syncthing service
 
 [Service]
-WorkingDirectory=/server_config/syncthing
 ExecStart=/server_config/control.py start syncthing
 Restart=on-failure
 RestartSec=5
 
 [Install]
 After=network.target
-Requires=docker.serivce
+After=docker.service
 WantedBy=default.target
 Wants=network.target
+Wants=docker.serivce
