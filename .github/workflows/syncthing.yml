@@ -6,7 +6,7 @@ on:
         paths:
             - 'build/syncthing/**'
     schedule:
-        - cron: '37 19 * * *'
+        - cron: '37 19 * * 5'
     workflow_dispatch:
 
 jobs:
