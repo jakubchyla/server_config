@@ -1,0 +1,18 @@
+---
+
+- name: Bootstrap
+  hosts: vagrant_vms
+  gather_facts: false  # gather facts AFTER the host key has been accepted instead
+
+  tasks:
+    - name: Accept SSH host keys
+      connection: local
+      become: false
+      ansible.builtin.shell: ssh-keyscan {{ ansible_host }} >> ~/.ssh/known_hosts
+      register: known_hosts_script
+      changed_when: "'found' not in known_hosts_script.stdout"
+
+    - name: Gathering Facts
+      ansible.builtin.setup:
+
+...

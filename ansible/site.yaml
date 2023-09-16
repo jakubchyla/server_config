@@ -1,0 +1,22 @@
+---
+
+- name: Set k3s control
+  hosts: all
+
+  tasks:
+    - name: Set k3s_control_node fact
+      ansible.builtin.set_fact:
+        k3s_control_node: true
+      when: "'control_nodes' in group_names"
+
+
+- name: "Provision base os"
+  become: true
+  become_user: root
+  hosts: all
+  roles:
+    - install_packages
+    - network
+    - k3s
+
+...

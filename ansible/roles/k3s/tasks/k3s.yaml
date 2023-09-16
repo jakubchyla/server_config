@@ -1,0 +1,7 @@
+---
+
+- name: "Setup k3s"
+  ansible.builtin.import_role:
+    name: xanmanning.k3s
+
+...

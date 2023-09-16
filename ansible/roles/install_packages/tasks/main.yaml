@@ -1,0 +1,11 @@
+---
+
+- name: "Manage base system packages"
+  ansible.builtin.import_tasks:
+    file: "base_system_packages.yaml"
+
+- name: "Instal docker"
+  ansible.builtin.import_tasks:
+    file: "docker.yaml"
+
+...

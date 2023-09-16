@@ -1,0 +1,18 @@
+---
+
+all:
+  vars:
+  children:
+    control_nodes:
+      hosts:
+        hades:
+          ansible_host: 192.168.0.150
+          ansible_user: hades
+
+    managed_nodes:
+      hosts:
+        charon:
+          ansible_host: 192.168.0.151
+          ansible_user: charon
+
+...

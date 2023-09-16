@@ -1,0 +1,38 @@
+---
+
+- name: "Add docker key"
+  tags: docker
+  ansible.builtin.apt_key:
+    url: "https://download.docker.com/linux/debian/gpg"
+    keyring: "/etc/apt/trusted.gpg.d/docker.gpg"
+
+- name: "Add docker repository"
+  tags: docker
+  ansible.builtin.apt_repository:
+    filename: "docker"
+    repo: "deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+
+- name: "Remove old docker packages"
+  tags: docker
+  ansible.builtin.apt:
+    state: absent
+    autoclean: true
+    pkg:
+      - docker.io
+      - docker-doc
+      - docker-compose
+      - podman-docker
+      - containerd
+      - runc
+
+- name: "Install docker"
+  tags: docker
+  ansible.builtin.apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
+...
