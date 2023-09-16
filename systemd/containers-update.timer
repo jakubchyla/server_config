@@ -1,8 +1,0 @@
-[Unit]
-Description=Daily container update
-
-[Timer]
-OnCalendar=*-*-* 23:00
-
-[Install]
-WantedBy=timers.target

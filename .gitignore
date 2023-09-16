@@ -1,3 +1,1 @@
-services/**/passwd.client
-.vscode
-**/.env
+testing/vagrant*
