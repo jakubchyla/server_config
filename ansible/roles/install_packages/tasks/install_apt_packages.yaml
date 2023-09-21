@@ -1,0 +1,22 @@
+---
+
+- name: Update packages
+  tags: update
+  ansible.builtin.apt:
+    allow_change_held_packages: true
+    autoclean: true
+    update-cache: true
+    upgrade: true
+
+- name: Delete unneeded packages
+  ansible.builtin.apt:
+    allow_change_held_packages: true
+    autoclean: true
+    state: absent
+    pkg: "{{ apt_packages_remove }}"
+
+- name: Install packages
+  ansible.builtin.apt:
+    pkg: "{{ apt_packages_install }}"
+
+...

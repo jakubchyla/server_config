@@ -1,8 +1,8 @@
 ---
 
-- name: "Reload firewalld"
+- name: Reload firewalld
   ansible.builtin.systemd:
-    name: "firewalld"
+    name: firewalld
     state: reloaded
 
 ...

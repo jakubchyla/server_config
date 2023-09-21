@@ -1,22 +1,39 @@
 ---
 
-- name: Set k3s control
-  hosts: all
-
-  tasks:
-    - name: Set k3s_control_node fact
-      ansible.builtin.set_fact:
-        k3s_control_node: true
-      when: "'control_nodes' in group_names"
-
-
-- name: "Provision base os"
+- name: Install packages
+  tags: apt
   become: true
   become_user: root
   hosts: all
+  vars_files:
+    - vars.yaml
   roles:
     - install_packages
+
+- name: Configure network
+  tags: network
+  become: true
+  become_user: root
+  hosts: all
+  vars_files:
+    - vars.yaml
+  roles:
     - network
+
+- name: Install and configure k3s
+  tags: k3s
+  become: true
+  become_user: root
+  hosts: all
+  vars_files:
+    - vars.yaml
+  roles:
     - k3s
 
-...
+- name: Install helm charts
+  tags: helm_charts
+  hosts: all
+  vars_files:
+    - vars.yaml
+  roles:
+    - install_helm_charts

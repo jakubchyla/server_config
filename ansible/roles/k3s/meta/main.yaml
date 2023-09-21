@@ -1,6 +1,0 @@
----
-
-dependencies:
-  - role: xanmanning.k3s
-
-...

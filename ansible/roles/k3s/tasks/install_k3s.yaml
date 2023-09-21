@@ -1,0 +1,16 @@
+---
+
+- name: Get variable
+  ansible.builtin.debug:
+    var: k3s_control_node
+
+- name: Setup k3s
+  ansible.builtin.import_role:
+    name: xanmanning.k3s
+
+- name: Copy cluster config to host
+  when: k3s_control_node
+  ansible.builtin.fetch:
+    dest: "~/tmp/"
+    src: "/etc/rancher/k3s/k3s.yaml"
+    flat: true

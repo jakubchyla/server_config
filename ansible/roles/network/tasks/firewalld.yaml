@@ -1,13 +1,13 @@
 ---
 
-- name: "Get package facts"
+- name: "Gather package facts"
   ansible.builtin.package_facts:
     manager: auto
 
 - name: "Ensure firewalld is installed"
-  ansible.builtin.fail:
-    msg: "Firewalld not installed"
   when: "'firewalld' not in ansible_facts.packages"
+  ansible.builtin.fail:
+    msg: Firewalld not installed
 
 - name: "Enable public zone"
   ansible.posix.firewalld:

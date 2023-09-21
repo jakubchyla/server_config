@@ -1,11 +1,9 @@
 ---
 
-- name: "Manage firewall"
+- name: Manage firewall
   ansible.builtin.import_tasks:
     file: "firewalld.yaml"
 
-- name: "Manage hostname"
+- name: Manage hostname
   ansible.builtin.import_tasks:
     file: "hostname.yaml"
-
-...

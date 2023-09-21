@@ -1,0 +1,26 @@
+---
+
+all:
+  vars:
+    ansible_ssh_common_args: -o StrictHostKeyChecking=no
+    ansible_user: vagrant
+    ansible_ssh_private_key_file: ~/.ssh/vagrant
+    ansible_python_interpreter: /usr/bin/python3
+    k3s_become: true
+
+  children:
+    control_nodes:
+      vars:
+        k3s_server_config_yaml_d_files:
+          - templates/disable_load_balancer.yaml.j2
+        k3s_control_node: true
+      hosts:
+        vagrant1:
+          ansible_host: 192.168.33.11
+
+    managed_nodes:
+      vars:
+        k3s_control_node: false
+      hosts:
+        vagrant2:
+          ansible_host: 192.168.33.12

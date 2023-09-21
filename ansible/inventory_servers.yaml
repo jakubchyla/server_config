@@ -4,15 +4,19 @@ all:
   vars:
   children:
     control_nodes:
+      vars:
+        k3s_server_config_yaml_d_files:
+          - templates/disable_load_balancer.yaml.j2
+        k3s_control_node: true
       hosts:
         hades:
           ansible_host: 192.168.0.150
           ansible_user: hades
 
     managed_nodes:
+      vars:
+        k3s_control_node: true
       hosts:
         charon:
           ansible_host: 192.168.0.151
           ansible_user: charon
-
-...

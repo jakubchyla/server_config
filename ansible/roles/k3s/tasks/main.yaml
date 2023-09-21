@@ -1,0 +1,13 @@
+---
+
+- name: Install k3s
+  ansible.builtin.import_tasks:
+    file: "install_k3s.yaml"
+
+- name: Configure k3s
+  ansible.builtin.import_tasks:
+    file: "configure_k3s.yaml"
+
+- name: Install helm
+  ansible.builtin.import_tasks:
+    file: "install_helm.yaml"

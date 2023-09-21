@@ -1,0 +1,35 @@
+---
+
+- name: Check if helm is installed
+  block:
+    - name: Check if helm file exists
+      ansible.builtin.stat:
+        path: "/usr/local/bin/helm"
+      register: st
+
+    - name: Fail if helm not installed
+      when: not st.stat.exists
+      ansible.builtin.fail:
+        msg: Helm not installed
+
+- name: Chck if python3-yaml is installed
+  block:
+    - name: Gather apt packages facts
+      ansible.builtin.package_facts:
+        manager: apt
+
+    - name: Fail if python3-yaml not installed
+      when: "'python3-yaml' not in ansible_facts.packages"
+      ansible.builtin.fail:
+        msg: python3-yaml not installed
+
+- name: Add metallb repo
+  kubernetes.core.helm_repository:
+    repo_url: "https://metallb.github.io/metallb"
+    name: metallb
+
+- name: Install metallb
+  kubernetes.core.helm:
+    name: metallb
+    chart_ref: metallb/metallb
+    release_namespace: default

@@ -1,0 +1,15 @@
+---
+
+apt_packages_install:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - neovim
+  - zsh
+  - git
+  - firewalld
+  - python3-firewall
+  - python3-yaml
+apt_packages_remove:
+  - ufw
