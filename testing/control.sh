@@ -79,13 +79,13 @@ main()
         build)
             build_vagrantfiles
         ;;
-        run)
+        run|start)
             run_vms
         ;;
         destroy)
             destroy_vms
         ;;
-        stop)
+        halt|stop)
             stop_vms
         ;;
         reset)
