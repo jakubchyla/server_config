@@ -1,0 +1,20 @@
+- name: Create directories
+  ansible.builtin.import_tasks:
+    file: "create_dirs.yaml"
+
+- name: Download config files
+  ansible.builtin.import_tasks:
+    file: "download_config_files.yaml"
+
+- name: Set up subscription-manager
+  ansible.builtin.import_tasks:
+    file: "subscription_manager.yaml"
+
+- name: Set up nas
+  ansible.builtin.import_tasks:
+    file: "nas.yaml"
+  when: nas
+
+- name: Cleanup
+  ansible.builtin.import_tasks:
+    file: "cleanup.yaml"

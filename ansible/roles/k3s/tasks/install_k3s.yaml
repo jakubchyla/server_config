@@ -1,5 +1,3 @@
----
-
 - name: Get variable
   ansible.builtin.debug:
     var: k3s_control_node
@@ -14,3 +12,25 @@
     dest: "~/tmp/"
     src: "/etc/rancher/k3s/k3s.yaml"
     flat: true
+
+- name: Setup automatic updates
+  block:
+    - name: Copy k3s automatic updates files
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "644"
+        owner: "root"
+        group: "root"
+      loop:
+        - src: "k3s-upgrade.service"
+          dest: "/etc/systemd/system/k3s-upgrade.service"
+        - src: "k3s-upgrade.timer"
+          dest: "/etc/systemd/system/k3s-upgrade.timer"
+        - src: "k3s-upgrade.sh"
+          dest: "/usr/local/bin/k3s-upgrade.sh"
+    - name: Enable automatic updates
+      ansible.builtin.systemd:
+        name: "k3s-upgrade.timer"
+        state: "started"
+        enabled: true

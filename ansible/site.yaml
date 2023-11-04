@@ -1,12 +1,7 @@
----
-
 - name: Install packages
-  tags: apt
   become: true
   become_user: root
   hosts: all
-  vars_files:
-    - vars.yaml
   roles:
     - install_packages
 
@@ -15,8 +10,6 @@
   become: true
   become_user: root
   hosts: all
-  vars_files:
-    - vars.yaml
   roles:
     - network
 
@@ -25,15 +18,13 @@
   become: true
   become_user: root
   hosts: all
-  vars_files:
-    - vars.yaml
   roles:
     - k3s
 
-- name: Install helm charts
-  tags: helm_charts
-  hosts: all
-  vars_files:
-    - vars.yaml
-  roles:
-    - install_helm_charts
+# - name: Install helm charts
+#   tags: helm_charts
+#   hosts: all
+#   vars_files:
+#     - vars.yaml
+#   roles:
+#     - install_helm_charts

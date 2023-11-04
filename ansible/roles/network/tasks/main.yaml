@@ -1,5 +1,3 @@
----
-
 - name: Manage firewall
   ansible.builtin.import_tasks:
     file: "firewalld.yaml"
@@ -7,3 +5,7 @@
 - name: Manage hostname
   ansible.builtin.import_tasks:
     file: "hostname.yaml"
+
+- name: Configure hosts file
+  ansible.builtin.import_tasks:
+    file: "hosts.yaml"

@@ -1,0 +1,10 @@
+dnf_packages_install:
+  - ca-certificates
+  - curl
+  - gnupg
+  # - neovim
+  - git
+  - python3-firewall
+  - python3-yaml
+  - vault
+# dnf_packages_remove:

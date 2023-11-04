@@ -1,0 +1,6 @@
+[Unit]
+Description=K3s Upgrade Service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/k3s-upgrade.sh

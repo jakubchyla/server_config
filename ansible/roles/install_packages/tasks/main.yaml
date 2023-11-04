@@ -1,9 +1,7 @@
----
+- name: Configure dnf
+  ansible.builtin.import_tasks:
+    file: "configure_dnf.yaml"
 
 - name: Manage base system packages
   ansible.builtin.import_tasks:
-    file: "install_apt_packages.yaml"
-
-- name: Install docker
-  ansible.builtin.import_tasks:
-    file: "docker.yaml"
+    file: "dnf_packages.yaml"

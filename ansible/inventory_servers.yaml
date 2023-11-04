@@ -1,7 +1,6 @@
----
-
 all:
   vars:
+    config_dir: "/data/config_files"
   children:
     control_nodes:
       vars:
@@ -12,6 +11,9 @@ all:
         hades:
           ansible_host: 192.168.0.150
           ansible_user: hades
+          host_specific_packages:
+            - "nfs-utils"
+          nas: true
 
     managed_nodes:
       vars:

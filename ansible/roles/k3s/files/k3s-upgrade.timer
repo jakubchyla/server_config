@@ -1,0 +1,8 @@
+[Unit]
+Description=K3s Upgrade Timer
+
+[Timer]
+OnCalendar=*-*-* 4 * * 1
+
+[Install]
+WantedBy=timers.target
