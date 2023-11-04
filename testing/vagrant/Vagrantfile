@@ -1,0 +1,21 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "almalinux/9"
+    config.vm.provider :libvirt do |libvirt|
+        libvirt.cpus = 4
+        libvirt.memory = 4096
+        libvirt.qemu_use_session = false
+    end
+    config.vm.provision "file", source: "~/.ssh/vagrant.pub", destination: "/home/vagrant/.ssh/vagrant.pub"
+    config.vm.provision "shell", inline: "cat /home/vagrant/.ssh/vagrant.pub >> /home/vagrant/.ssh/authorized_keys"
+
+    config.vm.define :vagrant1 do |vagrant1|
+        vagrant1.vm.network :private_network,
+        :libvirt_network_address => "192.168.33.0",
+        :ip => "192.168.33.130"
+    end
+    config.vm.define :vagrant2 do |vagrant2|
+        vagrant2.vm.network :private_network,
+        :libvirt_network_address => "192.168.33.0",
+        :ip => "192.168.33.131"
+    end
+end

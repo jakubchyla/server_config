@@ -1,1 +1,4 @@
-testing/vagrant*
+testing/vagrant/.vagrant
+.vscode/settings.json
+
+ansible/roles/configure_system/vars/main.yaml
