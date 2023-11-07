@@ -1,5 +1,3 @@
----
-
 - name: Check if helm is installed
   block:
     - name: Check if helm file exists
@@ -12,7 +10,7 @@
       ansible.builtin.fail:
         msg: Helm not installed
 
-- name: Chck if python3-yaml is installed
+- name: Check if python3-yaml is installed
   block:
     - name: Gather apt packages facts
       ansible.builtin.package_facts:

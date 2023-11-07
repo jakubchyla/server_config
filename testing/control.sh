@@ -20,7 +20,8 @@ destroy_vms()
 {
     CURRENT_DIR="$(pwd)"
     cd vagrant
-    vagrant destroy --force
+    vagrant destroy --force vagrant1
+    vagrant destroy --force vagrant2
     cd "$CURRENT_DIR"
 }
 

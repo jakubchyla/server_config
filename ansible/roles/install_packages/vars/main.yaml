@@ -1,8 +1,9 @@
 dnf_packages_install:
   - ca-certificates
   - curl
+  - firewalld
   - gnupg
-  # - neovim
+  - neovim
   - git
   - python3-firewall
   - python3-yaml

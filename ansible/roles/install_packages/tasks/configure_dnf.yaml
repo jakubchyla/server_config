@@ -3,6 +3,9 @@
     cmd: "dnf install -y python3-dnf"
 
 - name: Enable hashicorp repository
+  tags:
+    - "hashicorp"
+    - "Hashicorp"
   ansible.builtin.yum_repository:
     name: "hashicorp"
     description: "HashiCorp repository"
@@ -11,3 +14,22 @@
     gpgcheck: true
     gpgkey:
       - "https://rpm.releases.hashicorp.com/gpg"
+
+- name: Enable codeready repository
+  community.general.rhsm_repository:
+    name: "codeready-builder-for-rhel-9-x86_64-rpms"
+    state: "enabled"
+
+- name: Install epel repository
+  tags:
+    - "epel"
+    - "EPEL"
+  block:
+    - name: Import epel gpg key
+      ansible.builtin.rpm_key:
+        key: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-9"
+        state: present
+    - name: Install epel
+      ansible.builtin.dnf:
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
+        state: "present"
