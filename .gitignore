@@ -2,3 +2,4 @@ testing/vagrant/.vagrant
 .vscode/settings.json
 
 ansible/roles/initial_configuration/vars/main.yaml
+ansible/roles/k3s/vars/vault.yaml

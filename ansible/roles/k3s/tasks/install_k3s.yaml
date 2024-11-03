@@ -1,36 +1,30 @@
-- name: Get variable
-  ansible.builtin.debug:
-    var: k3s_control_node
+- name: Download k3s install script
+  ansible.builtin.get_url:
+    url: "https://get.k3s.io/"
+    dest: /usr/local/bin/k3s-install.sh
+    owner: root
+    group: root
+    mode: "0755"
 
-- name: Setup k3s
-  ansible.builtin.import_role:
-    name: xanmanning.k3s
+- name: Install k3s control node
+  ansible.builtin.command:
+    cmd: /usr/local/bin/k3s-install.sh
+  environment:
+    K3S_TOKEN: "{{ k3s_token }}"
+  when: k3s_control_node is defined
+  changed_when: true
 
-- name: Copy cluster config to host
-  when: k3s_control_node
+- name: Install k3s agent
+  ansible.builtin.command:
+    cmd: /usr/local/bin/k3s-install.sh
+  environment:
+    K3S_URL: "{{ k3s_url }}"
+    K3S_TOKEN: "{{ k3s_token }}"
+  when: k3s_control_node is undefined
+  changed_when: true
+
+- name: Download kubeconfig
   ansible.builtin.fetch:
-    dest: "~/tmp/"
-    src: "/etc/rancher/k3s/k3s.yaml"
-    flat: true
-
-- name: Setup automatic updates
-  block:
-    - name: Copy k3s automatic updates files
-      ansible.builtin.copy:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        mode: "755"
-        owner: "root"
-        group: "root"
-      loop:
-        - src: "k3s-upgrade.service"
-          dest: "/etc/systemd/system/k3s-upgrade.service"
-        - src: "k3s-upgrade.timer"
-          dest: "/etc/systemd/system/k3s-upgrade.timer"
-        - src: "k3s-upgrade.sh"
-          dest: "/usr/local/bin/k3s-upgrade.sh"
-    - name: Enable automatic updates
-      ansible.builtin.systemd:
-        name: "k3s-upgrade.timer"
-        state: "started"
-        enabled: true
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: ~/tmp
+  when: k3s_control_node is defined
