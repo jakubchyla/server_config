@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discord-calendar-service
+  namespace: discord-calendar
+spec:
+  selector:
+    app: discord-calendar
+  ports:
+  - port: 80
+    targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: discord-calendar-ingress
+  namespace: discord-calendar
+spec:
+  rules:
+    - http:
+        paths:
+        - pathType: Prefix
+          path: "/calendar"
+          backend:
+            service:
+              name: discord-calendar-service
+              port:
+                number: 80

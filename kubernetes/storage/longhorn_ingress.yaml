@@ -1,0 +1,41 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: longhorn-ingress-auth-middleware
+  namespace: longhorn-system
+spec:
+  basicAuth:
+    removeHeader: true
+    secret: longhorn-ingress-secret
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: longhorn-ingress-stripprefix
+  namespace: longhorn-system
+spec:
+  stripPrefixRegex:
+    regex:
+      - "/longhorn[/]*"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: longhorn-ingress
+  namespace: longhorn-system
+  annotations:
+    # enable authentication using middleware
+    # traefik doesn't support annotations anymore
+    traefik.ingress.kubernetes.io/router.middlewares: longhorn-system-longhorn-ingress-auth-middleware@kubernetescrd, longhorn-system-longhorn-ingress-stripprefix@kubernetescrd
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/longhorn"
+        backend:
+          service:
+            name: longhorn-frontend
+            port:
+              number: 80

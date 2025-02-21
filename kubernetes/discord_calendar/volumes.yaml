@@ -1,0 +1,75 @@
+# calendar volume
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+  name: discord-calendar-calendar-pv
+spec:
+  capacity:
+    storage: 128Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-csi
+  mountOptions:
+    - nfsvers=4.1
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: nfs-server.nfs-provisioner.svc.cluster.local/#discord_calendar#calendar_data
+    volumeAttributes:
+      server: nfs-server.nfs-provisioner.svc.cluster.local
+      share: /discord_calendar/calendar_data
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: discord-calendar-calendar-pvc
+  namespace: discord-calendar
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 128Mi
+  volumeName: discord-calendar-calendar-pv
+  storageClassName: nfs-csi
+
+# website volume
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+  name: discord-calendar-website-pv
+spec:
+  capacity:
+    storage: 16Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-csi
+  mountOptions:
+    - nfsvers=4.1
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: nfs-server.nfs-provisioner.svc.cluster.local/#discord_calendar#website
+    volumeAttributes:
+      server: nfs-server.nfs-provisioner.svc.cluster.local
+      share: /discord_calendar/website
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: discord-calendar-website-pvc
+  namespace: discord-calendar
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 16Mi
+  volumeName: discord-calendar-website-pv
+  storageClassName: nfs-csi
