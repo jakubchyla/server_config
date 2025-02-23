@@ -36,10 +36,6 @@ spec:
       containers:
         - name: syncthing
           image: linuxserver/syncthing
-          resources:
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
           env:
             - name: PUID
               value: "1001"
