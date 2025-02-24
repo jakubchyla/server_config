@@ -4,34 +4,25 @@
     state: "started"
     enabled: true
 
-- name: "Gather package facts"
+- name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
 
-- name: "Ensure firewalld is installed"
+- name: Ensure firewalld is installed
   when: "'firewalld' not in ansible_facts.packages"
   ansible.builtin.fail:
     msg: Firewalld not installed
 
-- name: "Enable public zone"
+- name: Enable public zone
   ansible.posix.firewalld:
     permanent: true
     zone: "public"
     state: "present"
   notify: "Reload firewalld"
 
-- name: "Add services to firewalld"
+- name: Add services to firewalld
   ansible.posix.firewalld:
-    immediate: true
     permanent: true
     port: 22/tcp
-    state: "enabled"
-  notify: "Reload firewalld"
-
-- name: "Add k3s cluster access port"
-  ansible.posix.firewalld:
-    immediate: true
-    permanent: true
-    port: 6443/tcp
     state: "enabled"
   notify: "Reload firewalld"
