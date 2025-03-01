@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: calendar-jakubchyla-com-cert
+  namespace: discord-calendar
+spec:
+  secretName: calendar-jakubchyla-com-tls
+  issuerRef:
+    name: cert-issuer
+    kind: ClusterIssuer
+  dnsNames:
+  - calendar.jakubchyla.com
+  duration: 2160h
+  renewBefore: 360h

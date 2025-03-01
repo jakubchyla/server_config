@@ -15,6 +15,7 @@ data:
     http {
         include       /etc/nginx/mime.types;
         default_type  application/octet-stream;
+
         types {
             text/css css;
             text/javascript js;
@@ -32,9 +33,18 @@ data:
         keepalive_timeout  65;
         #gzip  on;
         server {
-            listen 80 default_server;
-            server_name _;
-            location /calendar {
+            listen 80;
+            server_name calendar.jakubchyla.com;
+            return 301 https://$host$request_uri;
+        }
+        server {
+            listen 443 ssl;
+            server_name calendar.jakubchyla.com;
+
+            ssl_certificate /etc/nginx/ssl/tls.crt;
+            ssl_certificate_key /etc/nginx/ssl/tls.key;
+
+            location / {
                 alias /website/;
                 index index.html;
                 try_files $uri $uri/ /index.html;
@@ -45,9 +55,6 @@ data:
                 add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization' always;
             }
 
-            location / {
-                return 404;
-            }
         }
     }
 ---
@@ -94,12 +101,16 @@ spec:
         - name: discord-calendar-nginx
           image: nginx:alpine
           ports:
-          - containerPort: 80
+          - name: http
+            containerPort: 80
+            protocol: TCP
+          - name: https
+            containerPort: 443
             protocol: TCP
           volumeMounts:
           - name: discord-calendar-website
             mountPath: /website
-            readOnly: false
+            readOnly: true
           - name: discord-calendar-nginx-conf
             mountPath: /etc/nginx/nginx.conf
             subPath: nginx.conf
@@ -107,6 +118,8 @@ spec:
           - name: discord-calendar-calendar
             mountPath: /calendar
             readOnly: true
+          - name: cert
+            mountPath: /etc/nginx/ssl
 
         - name: discord-calendar-bot
           image: jakchyla/calendar_bot:1.1
@@ -135,3 +148,6 @@ spec:
         - name: discord-calendar-calendar
           persistentVolumeClaim:
             claimName: discord-calendar-calendar-pvc
+        - name: cert
+          secret:
+            secretName: calendar-jakubchyla-com-tls
