@@ -5,6 +5,7 @@ dnf_packages_install:
   - gnupg
   - neovim
   - git
+  - rclone
   - python3-firewall
   - python3-yaml
   - vault

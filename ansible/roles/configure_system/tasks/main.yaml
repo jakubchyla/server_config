@@ -2,6 +2,10 @@
   ansible.builtin.import_tasks:
     file: "create_dirs.yaml"
 
+- name: Setup backup
+  ansible.builtin.import_tasks:
+    file: "backup.yaml"
+
 - name: Download config files
   ansible.builtin.import_tasks:
     file: "download_config_files.yaml"
